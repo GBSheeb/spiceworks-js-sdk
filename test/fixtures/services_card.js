@@ -1,6 +1,6 @@
 var card = new SW.Card();
 
-card.services('assertions').send('ok', {
+card.services('assertions').trigger('ok', {
   bool: true,
-  message: "send could be used to send messages to named services"
+  message: "trigger could be used to send messages to named services"
 });

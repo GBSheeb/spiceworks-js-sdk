@@ -18,7 +18,7 @@ describe('SW SDK frame', function () {
     mochaFixture = document.getElementById('mocha-fixture');
   });
 
-  it("gives cards access to services via `send`", function(done) {
+  it("gives cards access to services via `trigger`", function(done) {
     var sandbox = oasis.createSandbox({
       url: "fixtures/services_card.html",
       capabilities: ['assertions'],
@@ -92,7 +92,7 @@ describe('SW SDK frame', function () {
     // assertions in activated_card.js
   });
 
-  it.skip('limits a cards capabilities', function(done) {
+  it('limits a cards capabilities', function(done) {
     var sandbox = oasis.createSandbox({
       url: "fixtures/limited_card.html",
       capabilities: ['assertions'],
@@ -130,7 +130,9 @@ describe('SW SDK frame', function () {
     };
 
     var simpleDataEnvironmentService = EnvironmentService.extend({
-      data: activationData
+      data: function () {
+        return activationData;
+      }
     });
 
     var AssertionsService = Oasis.Service.extend({
@@ -159,7 +161,9 @@ describe('SW SDK frame', function () {
     var activationData = { user_id: '12345', user_email: 'artv@spiceworks.com' };
 
     var simpleDataEnvironmentService = EnvironmentService.extend({
-      data: activationData
+      data: function () {
+        return activationData;
+      }
     });
 
     var AssertionsService = Oasis.Service.extend({
@@ -194,15 +198,4 @@ describe('SW SDK frame', function () {
     mochaFixture.appendChild(sandbox.el);
     // assertions in activated_card.js
   });
-
-  it.skip('activates a card', function(done) {
-    card = conductor.load("fixtures/activation/activated_card.html", 1, {
-      services: {
-        assertion: newAssertionService(done)
-      }
-    });
-    card.appendTo(mochaFixture);
-    // assertions in activated_card.js
-  });
-
 });
